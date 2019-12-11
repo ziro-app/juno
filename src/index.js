@@ -3,7 +3,7 @@ const app = express();
 const querystring = require('querystring');
 const rp = require('request-promise-native');
 
-// Testando querystring
+// Consulta de pagamentos realizados
 
 app.get('/consulta-pagamentos', async (req,res) => {
     const basicUrl = 'https://sandbox.boletobancario.com/boletofacil/integration/api/v1/list-charges';
@@ -44,6 +44,8 @@ app.get('/consulta-pagamentos', async (req,res) => {
     })
 })
 
+// Geração de boletos!
+
 app.post('/geracao-boleto', async (req,res) => {
     const basicUrl2 = 'https://sandbox.boletobancario.com/boletofacil/integration/api/v1/issue-charge';
     const query2 = querystring.stringify(req.query);
@@ -63,6 +65,29 @@ app.post('/geracao-boleto', async (req,res) => {
             res.json({err})
         })
 })
+
+// Consulta de Saldo a transferir
+
+app.get('/consulta-saldo', async (req,res) => {
+    const basicUrl3 = 'https://sandbox.boletobancario.com/boletofacil/integration/api/v1/fetch-balance';
+    const query3 = querystring.stringify(req.query);
+    const url3 = `${basicUrl3}?${query3}`;
+
+    let options = {
+        method: 'GET',
+        url:url3,
+        json:true
+    };
+
+    rp(options)
+        .then(function (body){
+            res.json({body})
+        })
+        .catch(function (err){
+            res.json({err})
+        })
+})
+
 
 app.listen(3000, () => {
     console.log('Sucess');
