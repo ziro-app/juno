@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const querystring = require('querystring');
-const request = require('request-promise-native');
+const rp = require('request-promise-native');
 
 // Testando querystring
 
@@ -11,10 +11,12 @@ app.get('/consulta-pagamentos', async (req,res) => {
     const url = `${basicUrl}?${query}`;
     // console.log(Object.keys(req));
     console.log(req.route.path)
-    request({
+    let options = {
         url:url,
-        json: true // testar sem
-    })
+        json: true
+    }
+
+    rp(options)
     .then((body) => {
             const ids = [];
             for(let i in body.data.charges){
@@ -40,6 +42,26 @@ app.get('/consulta-pagamentos', async (req,res) => {
             res.json({error})
         }
     })
+})
+
+app.post('/geracao-boleto', async (req,res) => {
+    const basicUrl2 = 'https://sandbox.boletobancario.com/boletofacil/integration/api/v1/issue-charge';
+    const query2 = querystring.stringify(req.query);
+    const url2 = `${basicUrl2}?${query2}`;
+
+    let options = {
+        method: 'POST',
+        url:url2,
+        json:true
+    };
+
+    rp(options)
+        .then(function (body){
+            res.json({body})
+        })
+        .catch(function (err){
+            res.json({err})
+        })
 })
 
 app.listen(3000, () => {
