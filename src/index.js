@@ -3,12 +3,6 @@ const app = express();
 const querystring = require('querystring');
 const rp = require('request-promise-native');
 
-//Página inicial
-
-app.get('/', (req,res) => {
-    res.json({ "Bem vindo!" })
-    })
-
 // Consulta de pagamentos realizados
 
 app.get('/consulta-pagamentos', async (req,res) => {
@@ -115,4 +109,6 @@ app.post('/transferencia-saldo', async (req,res) => {
     }
 })
 
-app.listen(process.env.PORT || 8000)
+app.listen(3000, () => {
+    console.log('Sucess');
+})

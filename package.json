@@ -1,9 +1,10 @@
 {
-  "name": "ApiJuno",
+  "name": "juno",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
+    "dev": "nodemon src/index.js",
     "start": "node src/index.js"
   },
   "dependencies": {
@@ -12,8 +13,5 @@
     "querystring": "^0.2.0",
     "request": "^2.88.0",
     "request-promise-native": "^1.0.8"
-  },
-  "engines": {
-    "node": "12.13.0"
   }
 }
