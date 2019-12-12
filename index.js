@@ -112,6 +112,4 @@ app.post('/transferencia-saldo', async (req,res) => {
     }
 })
 
-app.listen(process.env.PORT || 3000, '0.0.0.0', () => {
-    console.log('Servidor está rodando .......');
-})
+app.listen(process.env.PORT || 3000, () => console.log(`Listening on ${process.env.PORT || 3000}`))
