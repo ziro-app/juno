@@ -115,8 +115,6 @@ app.post('/transferencia-saldo', async (req,res) => {
     }
 })
 
-const PORT = process.env.PORT;
-
-app.listen(PORT, () => {
+app.listen(process.env.PORT, () => {
     console.log('Sucess');
 })
