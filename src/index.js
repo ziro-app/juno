@@ -3,6 +3,12 @@ const app = express();
 const querystring = require('querystring');
 const rp = require('request-promise-native');
 
+//Página inicial
+
+app.get('/', async (req,res) => {
+    res.send("Bem vindo!")
+    })
+
 // Consulta de pagamentos realizados
 
 app.get('/consulta-pagamentos', async (req,res) => {
@@ -64,7 +70,7 @@ app.post('/geracao-boleto', async (req,res) => {
         .catch(function (err){
             res.json({err})
         })
-})
+    })
 
 // Consulta de Saldo a transferir
 
@@ -81,14 +87,34 @@ app.get('/consulta-saldo', async (req,res) => {
 
     rp(options)
         .then(function (body){
-            res.json({body})
+            res.json({ body })
         })
         .catch(function (err){
-            res.json({err})
+            res.json({ err })
         })
 })
 
+// Solicitação de transferência
 
-app.listen(3000, () => {
+app.post('/transferencia-saldo', async (req,res) => {
+    const basicUrl4 = 'https://sandbox.boletobancario.com/boletofacil/integration/api/v1/fetch-balance';
+    const query4 = querystring.stringify(req.query);
+    const url4 = `${basicUrl4}?${query4}`;
+
+    let options = {
+        method: 'POST',
+        url:url4,
+        json:true
+    };
+    try{
+        const data = await rp(options)
+        res.json({ data })
+    }
+    catch(err){
+        res.json({ err })
+    }
+})
+
+app.listen(process.env.PORT || 3000, () => {
     console.log('Sucess');
 })
