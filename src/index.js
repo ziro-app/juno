@@ -5,6 +5,10 @@ const rp = require('request-promise-native');
 
 // Consulta de pagamentos realizados
 
+app.get('/', async (req,res) => {
+    res.send("Bem vindo!")
+})
+
 app.get('/consulta-pagamentos', async (req,res) => {
     const basicUrl = 'https://sandbox.boletobancario.com/boletofacil/integration/api/v1/list-charges';
     const query = querystring.stringify(req.query);
@@ -109,6 +113,6 @@ app.post('/transferencia-saldo', async (req,res) => {
     }
 })
 
-app.listen(3000, () => {
+app.listen(process.env.PORT || 3000, () => {
     console.log('Sucess');
 })
