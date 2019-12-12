@@ -82,14 +82,13 @@ app.get('/consulta-saldo', async (req,res) => {
         url:url3,
         json:true
     };
-
-    rp(options)
-        .then(function (body){
-            res.json({ body })
-        })
-        .catch(function (err){
-            res.json({ err })
-        })
+    try{
+        const data2 = await rp(options)
+        res.json({ data2 })
+    }
+    catch(err){
+        res.json({ err })
+    }
 })
 
 // Solicitação de transferência
