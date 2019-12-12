@@ -115,6 +115,4 @@ app.post('/transferencia-saldo', async (req,res) => {
     }
 })
 
-var port_number = server.connection({ port: process.env.PORT || 3000 })
-
-app.listen(port_number)
+app.listen(process.env.PORT || 3000)
