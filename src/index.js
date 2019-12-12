@@ -5,8 +5,8 @@ const rp = require('request-promise-native');
 
 //Página inicial
 
-app.get('/', async (req,res) => {
-    res.send("Bem vindo!")
+app.get('/', (req,res) => {
+    res.json({ "Bem vindo!" })
     })
 
 // Consulta de pagamentos realizados
@@ -115,4 +115,4 @@ app.post('/transferencia-saldo', async (req,res) => {
     }
 })
 
-app.listen(process.env.PORT, '0.0.0.0')
+app.listen(process.env.PORT || 8000)
