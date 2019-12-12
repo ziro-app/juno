@@ -5,7 +5,7 @@ const rp = require('request-promise-native');
 
 // Consulta de pagamentos realizados
 
-app.get('/', async (req,res) => {
+app.get('/', (req,res) => {
     res.send("Bem vindo!")
 })
 
@@ -113,6 +113,6 @@ app.post('/transferencia-saldo', async (req,res) => {
     }
 })
 
-app.listen(process.env.PORT || 3000, () => {
-    console.log('Sucess');
+app.listen(process.env.PORT || 3000, '0.0.0.0', () => {
+    console.log('Servidor está rodando .......');
 })
