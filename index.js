@@ -6,10 +6,15 @@ require('dotenv').config()
 const basicAuth = require('express-basic-auth')
 const pdw = process.env.pdw;
 
+if(pdw == undefined){
+    app.use('*',(req,res) =>{
+        res.send('Senha não definida!')
+    })
+}else{
 app.use(basicAuth({
     users: { ahmad: pdw },
     unauthorizedResponse: 'Erro na autenticação do usuário'
-}))
+}))}
 
 // End Points da API Juno 1.0
 
@@ -26,9 +31,15 @@ app.use('/geracao-boleto', geracaoBoletos) /* Geração de boleto de cobranças 
 
 // End Points da Api Juno 2.0
 
-const geracaoToken = require('./routes/geracaoToken');
+const geracaoToken = require('./routes2/geracaoToken');
+const consultaCobrancas = require('./routes2/consultaCharges')
+const pesquisaCharges = require('./routes2/chargesId')
+const cancelCharges = require('./routes2/cancelarCharges')
 
 app.use('/geracao-token', geracaoToken)
+.use('/consulta-cobrancas', consultaCobrancas)
+.use('/pesquisa-cobrancas', pesquisaCharges)
+.use('/cancelar-cobrancas', cancelCharges)
 
 // Erro 404 de status indefinido da página
 
